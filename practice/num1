@@ -1,0 +1,19 @@
+#coding:utf-8
+
+import re
+import urllib
+
+def getHtml(url):
+	page = urllib.urlopen(url)
+	html = page.read()
+	return html
+
+def getNum(html):
+	reg = r'已归档'
+	numre = re.compile(reg)
+	numlist = re.findall(numre,html)
+	return numlist
+
+html = getHtml("http://139.217.5.58/invoicesCheck/dist/html/list/index.html")
+
+print getNum(html)

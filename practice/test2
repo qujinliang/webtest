@@ -1,0 +1,21 @@
+#coding:UTF-8
+
+import requests
+
+com = '254296738@qq.com'
+password = '123456'
+test_url = 'http://139.217.5.58/api/v4000/expense/list/0/0'
+form_data = "{\"comId\" : \"2071\"}"
+headers = {
+	'content-type': "application/json",
+    'accesstoken': "ebd603d95dad47da93ac1e8359675f",
+    'cache-control': "no-cache"
+}
+
+response = requests.post(test_url, data=form_data,headers = headers)
+
+c = response.cookies
+r = response.text
+
+print (r)
+print (c)
