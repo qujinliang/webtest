@@ -1,0 +1,22 @@
+$def with (urlbase)
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="renderer" content="webkit">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Hello world</title>
+    </head>
+    <body>
+        <input type="text" name="shopname">
+        <input type="button" value="提交" @click="query">
+        <div class="info" v-for="item in shopes" style="border-bottom: #ccc 1px dashed">
+            <p>店铺：{{item.shopname}}</p>
+            <p>描述相符:{{item.dsr}}<br>服务态度:{{item.service}}<br>物流服务:{{item.ship}}</p>
+        </div>
+        <script type="text/javascript" src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='vue.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
+    </body>
+</html>
