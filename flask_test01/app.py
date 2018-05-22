@@ -1,4 +1,4 @@
-from flask import Flask,url_for,request,redirect
+from flask import Flask,url_for,request,redirect,make_response,session
 from flask import render_template
 from flask_test01.view.db_test import DbTest
 '''
@@ -7,9 +7,26 @@ url地址发送请求，参数username，调用方法prt_name
 '''
 app = Flask(__name__)
 
+# 判断是否已登陆，是就进入check页面，不是就是返回首页
 @app.route('/')
-def check():
-    return render_template('check.html')
+def index():
+    if 'username' in session:
+        return redirect(url_for(show_post))
+    return render_template('index.html')
+
+# 登陆页面，保存username到session并且重定向到check页面
+@app.route('/login',methods=["GET","POST"])
+def login():
+    if request.method=='POST':
+        session['suername'] = request.form.get('username')
+        return redirect(url_for('show_post'))
+    return render_template('login.html')
+
+# 退出登陆，从session删除username
+@app.route('/logout')
+def logout():
+    session.pop('username',None)
+    return redirect(url_for('index'))
 
 @app.route('/hello/<username>')
 def prt_name(username):
@@ -34,6 +51,7 @@ def show_post():
     return render_template('check.html')
 
 
+app.secret_key = 'qweasdzxc'
 with app.test_request_context():
     pass
     # print(url_for('prt_name',username='jo'))
