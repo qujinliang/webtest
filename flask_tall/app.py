@@ -21,12 +21,14 @@ def index():
 @app.route('/query', methods=['POST'])
 def query():
     keywords = request.form.get('shopname')
-    url_base = "https://list.tmall.com/search_product.htm?q=" + keywords
+    url_base = "https://list.tmall.com/search_product.htm?q=%s" %keywords
+    print(url_base)
     headers = {"User-Agent": "iphone7"}
 
     try:
-        result_base = requests.get(url=url_base, headers=headers, timeout=15).content.replace('\n', '').replace(' ', '')
+        result_base = str(requests.get(url=url_base, headers=headers, timeout=15).text)
         infostr = re.findall(r'j_shop_moreshop_more\">(.+?)</div>', result_base)
+        print(infostr)
         shoplist = []
 
         for item in infostr:

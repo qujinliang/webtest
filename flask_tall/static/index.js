@@ -1,5 +1,5 @@
 var mainVM = new Vue({
-    el: 'body',
+    el: '#bind',
     data: {
         shopes:[
             {
