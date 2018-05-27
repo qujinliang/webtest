@@ -1,0 +1,39 @@
+遇到的问题
+1.报错：RuntimeError: The environment variable 'FLASKR_SETTINGS' is not set and as such configuration could not be loaded.
+  Set this variable and make it point to a configuration file
+  原因：环境变量没有设置，mac下的命令：
+  echo $FLASKR_SETTINGS 查看环境变量
+  sudo vi ~/.bash_profile  打开环境变量文件
+  export FLASK_SETTINGS=/Users/qujl/webtest/blog/setting.py   添加环境变量
+  保存退出
+  重启终端
+
+2.报错：UserWarning: Neither SQLALCHEMY_DATABASE_URI nor SQLALCHEMY_BINDS is set. Defaulting SQLALCHEMY_DATABASE_URI to
+  "sqlite:///:memory:".'Neither SQLALCHEMY_DATABASE_URI nor SQLALCHEMY_BINDS is set. '
+  原因：低级错误，setting配置文件变量名写错
+  SQLALCHEMY_TRACK_MODIFICATIONS 写成 SQLALCHEMY_TRACK_MODIFCATIONS    少个I
+  SQLALCHEMY_DATABASE_URI        写成 SQLALCHEMY_DATABASE_URL          I写成L
+
+3.报错ModuleNotFoundError: No module named 'MySQLdb'
+  原因：没有安装MySQLdb连接数据库的模块
+  一些框架默认仍然用的是MySQLdb，但是python3已经不支持MySQLdb，取而代之的是pymysql，因此运行的时候会报
+  但是python3又没有 MySQLdb包
+  解决办法：安装pymysql
+  在sqlalchemy下的init.py中写入以下两行
+  路径是/Users/qujl/.virtualenvs/lib/python3.6/site-packages/sqlalchemy
+  sudo vi __init__.py
+  添加下面两行
+  import pymysql
+  pymysql.install_as_MySQLdb()
+  ——-补充说明
+  如果是要部署到服务器，建议还是解决一下环境的问题，单单只在自己本地电脑是可以解决这个问题，
+  但是有可能放到服务器的时候，服务器仍然不能运行甚至挂掉
+  转自 —-栖迟於一丘
+  原文链接（https://www.hongweipeng.com/index.php/archives/1142/）
+
+4.报错：sqlalchemy.exc.InternalError: (pymysql.err.InternalError) (1049,
+  "Unknown database 'BLOG_DB'") (Background on this error at: http://sqlalche.me/e/2j85)
+  原因：没有找到database 'BLOG_DB'的数据库
+  解决办法：手动创建这个数据库
+
+
