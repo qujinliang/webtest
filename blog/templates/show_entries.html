@@ -7,20 +7,27 @@
 </head>
 <body>
 {% block body %}
-    {% if seesion.logged_in %}
+    {% if session.logged_in %}
         <form action="{{ url_for('add_entry') }}" method="POST" class="add-entry">
             <dl>
                 <dt>Title:</dt>
-                <dd><input type="text" size="30" name="title"></dd>
+                <dd><input type="text" size="50" name="title"></dd>
+                <dt>Auth:</dt>
+                <dd><input type="text" size="50" name="auth"></dd>
                 <dt>Text:</dt>
-                <dd><textarea name="text" rows="5" cols="40"></textarea> </dd>
+                <dd><textarea name="text" rows="5" cols="60"></textarea> </dd>
                 <dd><input type="submit" value="Share"></dd>
+
             </dl>
         </form>
     {% endif %}
     <ul class="entries">
         {% for entry in entries %}
-            <li><h2>{{ entry.title }}</h2>{{ entry.content|safe }}</li>
+            {% if entry == None %}
+                 <li><h2>{{ entry.title }}</h2><h4>作者:无</h4>{{ entry.content|safe }}</li>
+            {% else %}
+                 <li><h2>{{ entry.title }}</h2><h4>作者:{{ entry.auth }}</h4>{{ entry.content|safe }}</li>
+            {% endif %}
         {% else %}
             <li><em>Unbelievable. No entries here so far</em></li>
         {% endfor %}
