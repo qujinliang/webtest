@@ -58,5 +58,7 @@ with app.test_request_context():
     # print(url_for('static', filename='style.css'))
     # print(url_for('show_post',filename='qujl'))
 
+
+
 if __name__ == '__main__':
     app.run(debug=True)
